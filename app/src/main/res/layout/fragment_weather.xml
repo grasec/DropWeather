@@ -10,7 +10,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin">
 
-
     <TextView
         android:id="@+id/cityField"
         android:layout_width="wrap_content"
@@ -77,13 +76,12 @@
         app:layout_constraintTop_toBottomOf="@+id/currentTemperatureField"
         tools:text="detailsField" />
 
-
     <Button
         android:id="@+id/changeCityButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:text="Change city"
+        android:text="@string/change_city_text"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -14,7 +14,6 @@ public class RemoteFetch {
             "http://api.openweathermap.org/data/2.5/weather?q=%s&units=metric";
     public static final String API_KEY = "dfe51c58a2e4f94ee85f1e5883baeec5";
 
-
     public static JSONObject getJSON(Context context, String city) {
         try {
             URL url = new URL(String.format(OPEN_WEATHER_MAP_API, city));

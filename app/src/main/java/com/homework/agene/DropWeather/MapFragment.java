@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -41,7 +40,7 @@ public class MapFragment extends Fragment {
         mMapView = view.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
 
-        mMapView.onResume(); // needed to get the map to display immediately
+        mMapView.onResume();
 
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -57,7 +56,7 @@ public class MapFragment extends Fragment {
                 mMap.setOnMyLocationClickListener(new GoogleMap.OnMyLocationClickListener() {
                     @Override
                     public void onMyLocationClick(@NonNull Location location) {
-                        doGeocoderStuff(location);
+                        getCityFromGeocoder(location);
                     }
                 });
                 mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -66,7 +65,7 @@ public class MapFragment extends Fragment {
                         Location location = new Location("click location");
                         location.setLatitude(latLng.latitude);
                         location.setLongitude(latLng.longitude);
-                        doGeocoderStuff(location);
+                        getCityFromGeocoder(location);
                     }
                 });
             }
@@ -96,12 +95,9 @@ public class MapFragment extends Fragment {
         }
     }
 
-    private void doGeocoderStuff(Location location) {
+    private void getCityFromGeocoder(Location location) {
         Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
         try {
-            /*Toast.makeText(this, "Current location:\n" +
-                    geocoder.getFromLocation(location.getLatitude(),
-                            location.getLongitude(), 1), Toast.LENGTH_LONG).show();*/
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             if (addresses.size() > 0) {
                 String city = addresses.get(0).getLocality();
@@ -118,7 +114,6 @@ public class MapFragment extends Fragment {
             e.printStackTrace();
         }
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -137,18 +132,7 @@ public class MapFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnHaveCityForWeatherFragment {
-        // TODO: Update argument type and name
         void onCity(String city);
     }
 }

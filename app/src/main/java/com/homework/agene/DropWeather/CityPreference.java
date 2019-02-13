@@ -3,18 +3,18 @@ package com.homework.agene.DropWeather;
 import android.app.Activity;
 import android.content.SharedPreferences;
 
-public class CityPreference {
-    SharedPreferences prefs;
+class CityPreference {
+    private SharedPreferences mPrefs;
 
-    public CityPreference(Activity activity){
-        prefs = activity.getPreferences(Activity.MODE_PRIVATE);
+    CityPreference(Activity activity){
+        mPrefs = activity.getPreferences(Activity.MODE_PRIVATE);
     }
 
     String getCity(){
-        return prefs.getString("city","Tel Aviv, IL");
+        return mPrefs.getString("city","Tel Aviv, IL");
     }
 
     void setCity(String city){
-        prefs.edit().putString("city",city).commit();
+        mPrefs.edit().putString("city",city).apply();
     }
 }
