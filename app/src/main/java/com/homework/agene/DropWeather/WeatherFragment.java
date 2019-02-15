@@ -3,9 +3,12 @@ package com.homework.agene.DropWeather;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.ColorInt;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
@@ -31,6 +34,7 @@ public class WeatherFragment extends Fragment {
     TextView detailsField;
     TextView currentTemperatureField;
     TextView weatherIcon;
+    ConstraintLayout weatherFrgment;
 
     public static String extraCity;
     Handler handler;
@@ -63,6 +67,7 @@ public class WeatherFragment extends Fragment {
         detailsField = rootView.findViewById(R.id.detailsField);
         currentTemperatureField = rootView.findViewById(R.id.currentTemperatureField);
         weatherIcon = rootView.findViewById(R.id.weatherIcon);
+        weatherFrgment = (ConstraintLayout) rootView;
         weatherIcon.setTypeface(weatherFont);
         rootView.findViewById(R.id.changeCityButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +90,7 @@ public class WeatherFragment extends Fragment {
                         @Override
                         public void run() {
                             Toast.makeText(getActivity(), getActivity()
-                                    .getString(R.string.place_not_found),
+                                            .getString(R.string.place_not_found),
                                     Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -114,13 +119,13 @@ public class WeatherFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 changeCity(input.getText().toString());
-                InputMethodManager imm = (InputMethodManager)getContext().getSystemService(
+                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(
                         Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
             }
         });
         builder.show();
-        InputMethodManager imm = (InputMethodManager)   getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
@@ -137,7 +142,8 @@ public class WeatherFragment extends Fragment {
                     "Pressure: " + main.getString("pressure") + "hPa");
 
             currentTemperatureField.setText(String.format("%.2f", main.getDouble("temp")) + " ℃");
-
+            Double tempNow = main.getDouble("temp");
+            setTheme(tempNow);
             DateFormat dateFormat = DateFormat.getDateTimeInstance();
             String updatedOn = dateFormat.format(new Date(json.getLong("dt") * 1000));
             updatedField.setText(updatedOn);
@@ -147,6 +153,23 @@ public class WeatherFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setTheme(double currentTemp){
+        //weatherFrgment.setBackgroundColor(getContext().getColor(R.color.warm));
+        if (currentTemp <= 0.0){
+            weatherFrgment.setBackgroundColor(getContext().getColor(R.color.gradientBelowZero));
+
+        } else if ( currentTemp < 12.0){
+            weatherFrgment.setBackgroundColor(getContext().getColor(R.color.gradientCold));
+        } else if (currentTemp > 15.0 && currentTemp < 22.0){
+            weatherFrgment.setBackgroundColor(getContext().getColor(R.color.gradientEasy));
+        } else if (currentTemp > 220. && currentTemp < 28.0){
+            weatherFrgment.setBackgroundColor(getContext().getColor(R.color.gradientWarm));
+        } else {
+            weatherFrgment.setBackgroundColor(getContext().getColor(R.color.gradientHot));
+        }
+
     }
 
     private void setWeatherIcon(int actualId, long sunrise, long sunset) {

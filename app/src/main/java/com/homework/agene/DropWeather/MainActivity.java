@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity implements MapFragment.OnHav
     private TabAdapter adapter;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements MapFragment.OnHav
         setContentView(R.layout.activity_main);
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabLayout);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         adapter = new TabAdapter(getSupportFragmentManager());
         adapter.addFragment(new WeatherFragment(), "Weather");
         adapter.addFragment(new MapFragment(), "Map");

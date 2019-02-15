@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FF0099CC</color>
-    <color name="colorPrimaryDark">#FF0099CC</color>
+    <color name="colorPrimary">#e2f1f8</color>
+    <color name="colorPrimaryDark">#808e95</color>
     <color name="colorAccent">#2196F3</color>
     <color name="weatherFragmentBackgroundColor">#FF0099CC</color>
+    <color name="gradientHot">#F44336</color>
+    <color name="gradientWarm">#FF9800</color>
+    <color name="gradientEasy">#FFC107</color>
+    <color name="gradientCold">#FF0099CC</color>
+    <color name="gradientBelowZero">#ADDEFF</color>
+    <color name="textColor">#5E5E5E</color>
+
 </resources>
