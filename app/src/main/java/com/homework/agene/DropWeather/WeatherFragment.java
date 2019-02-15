@@ -156,15 +156,13 @@ public class WeatherFragment extends Fragment {
     }
 
     private void setTheme(double currentTemp){
-        //weatherFrgment.setBackgroundColor(getContext().getColor(R.color.warm));
         if (currentTemp <= 0.0){
             weatherFrgment.setBackgroundColor(getContext().getColor(R.color.gradientBelowZero));
-
-        } else if ( currentTemp < 12.0){
+        } else if ( currentTemp <= 15.0){
             weatherFrgment.setBackgroundColor(getContext().getColor(R.color.gradientCold));
-        } else if (currentTemp > 15.0 && currentTemp < 22.0){
+        } else if (currentTemp <= 22.0){
             weatherFrgment.setBackgroundColor(getContext().getColor(R.color.gradientEasy));
-        } else if (currentTemp > 220. && currentTemp < 28.0){
+        } else if (currentTemp <= 28.0){
             weatherFrgment.setBackgroundColor(getContext().getColor(R.color.gradientWarm));
         } else {
             weatherFrgment.setBackgroundColor(getContext().getColor(R.color.gradientHot));
