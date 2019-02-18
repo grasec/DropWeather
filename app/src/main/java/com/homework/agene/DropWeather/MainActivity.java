@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MapFragment.OnHaveCityForWeatherFragment {
-    private TabAdapter adapter;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private Toolbar toolbar;
+    TabAdapter adapter;
+    TabLayout tabLayout;
+    ViewPager viewPager;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
